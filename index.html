@@ -280,7 +280,7 @@ array([[ 0.10102207,  0.15920012,  0.16530874]], dtype=float32)
 <slide  >
   
     <hgroup>
-      <h2>Slow Feature Extraction with tICA</h2>
+      <h2>Slow Feature Detection with tICA</h2>
       <h3></h3>
     </hgroup>
     <article ><p><center>
@@ -290,12 +290,13 @@ array([[ 0.10102207,  0.15920012,  0.16530874]], dtype=float32)
 import mixtape.tica
 
 tica = mixtape.tica.tICA()
-# Calculate correlation functions and solve the tICA eigenproblem
 map(lambda trj: tica.partial_fit(featurizer.featurize(trj)), trajectories)
-# Calculate our projected features
 X_slow = map(lambda trj: tica.transform(featurizer.featurize(trj)), trajectories)
 
-</pre></article>
+</pre>
+
+<p>Goal: Find slowest linear combination of $f_i(t)$</p>
+<p>$$C(t) x = \lambda(t) \Sigma x$$</p></article>
  
 </slide>
 
