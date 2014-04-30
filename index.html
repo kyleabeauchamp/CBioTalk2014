@@ -13,7 +13,7 @@ URL: https://code.google.com/p/io-2012-slides
 <!DOCTYPE html>
 <html>
 <head>
-  <title> Towards Robust Models of Molecular Kinetics</title>
+  <title> Towards Robust Kinetic Models at the Kinome Scale</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
@@ -52,7 +52,7 @@ URL: https://code.google.com/p/io-2012-slides
 <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
 
-    <h1> Towards Robust Models of Molecular Kinetics</h1>
+    <h1> Towards Robust Kinetic Models at the Kinome Scale</h1>
     <h2></h2>
     <p> Kyle Beauchamp<br/> Chodera Lab</p>
   </hgroup>
@@ -95,12 +95,21 @@ Shaw, 2012
       <h3></h3>
     </hgroup>
     <article ><ul>
-<li><strike> Systematic Error (Forcefields) </strike></li>
 <li>Precision (Sampling)</li>
 <li>Quantitative Connection to Experiment (Prediction)</li>
 <li>Interpretation of High-Dimensional Data (Reduction)</li>
 </ul></article>
  
+</slide>
+
+<slide class="segue dark nobackground" >
+  
+    <!-- <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside> -->
+    <hgroup class="auto-fadein">
+      <h2>Markov State Models for Molecular Kinetics</h2>
+      <h3></h3>
+    </hgroup>
+  
 </slide>
 
 <slide  >
@@ -115,7 +124,7 @@ Shaw, 2012
 <li>Few-state models for interpretability</li>
 </ul>
 <p><center>
-<img height=400 src=figures/chodera2007.png />
+<img height=365 src=figures/chodera2007.png />
 </center></p>
 <footer class="source"> 
 Chodera, 2007
@@ -162,6 +171,192 @@ Chodera, 2007
 <slide  >
   
     <hgroup>
+      <h2>The Markov State Model Pipeline</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><img src="https://docs.google.com/drawings/d/1T156xWFqyu6rxG2aIkI7_a-BY5e8TvXEZ-Jjjg0XgGc/pub?w=960&amp;h=384"></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Challenges in MSM Construction</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><ul>
+<li>No score function for overall model</li>
+<li>Hyperparameters in every step (tICA, Clustering, microstates, lumping, macrostates)</li>
+<li>Bias variance tradeoff is unwinable (10,000 states)  </li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>HMMs of Molecular Kinetics</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img height=150 src="http://upload.wikimedia.org/wikipedia/commons/8/83/Hmm_temporal_bayesian_net.svg">
+<img height=400 src="http://scikit-learn.org/stable/_images/plot_hmm_stock_analysis_1.png">
+</center></p>
+<footer class="source"> 
+Prinz, 2013.  McGibbon, 2014.
+</footer></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>A HMM Pipeline for Molecular Kinetics</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><img src="https://docs.google.com/drawings/d/1zgfNZ4JFH-X62KQklDFHpgZ2orxRHkfyfk_pBdi4YQs/pub?w=960&amp;h=384"></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>MDTraj, MSMBuilder, Mixtape (MSMB3)</h2>
+      <h3>Open-Source, High-Performance Featurization, Modeling, and Analysis</h3>
+    </hgroup>
+    <article ><p><center>
+<img height=250 src=figures/mdtraj_logo-small.png />   <img height=250 src=figures/msmb_logo.png /><br />
+</center></p>
+<footer class="source">
+Contributions from Vijay Pande, Greg Bowman, Xuhui Huang, John Chodera, Sergio Bacallado, Dan Ensign, Vince Voelz, TJ Lane, Lutz Maibaum, Imran Haque, Robert McGibbon, Christian Schwantes, Toni Giorgino, Gianni de Fabritiis
+</footer></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Loading and Saving Trajectories</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="https://docs.google.com/drawings/d/1cySR96A8koo-xM7CB8srEFf9ScODGtIP-Z_PCH6_rHc/pub?w=754&amp;h=137">
+</center></p>
+<pre class="prettyprint" data-lang="python">
+
+import mdtraj as md
+import glob
+
+trj0 = md.load("./Trajectories/trj0.h5")
+trj0.save("out.pdb")
+
+filenames = sorted(glob.glob("./Trajectories/*.h5"))
+trajectories = [md.load(filename, stride=stride) for filename in filenames]
+
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Trajectory Featurization</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="https://docs.google.com/drawings/d/1cySR96A8koo-xM7CB8srEFf9ScODGtIP-Z_PCH6_rHc/pub?w=754&amp;h=137">
+</center></p>
+<pre class="prettyprint" data-lang="python">
+import mixtape.featurizer
+
+featurizer = mixtape.featurizer.AtomPairsFeaturizer([[0, 1],[1, 2], [2, 3]], trj0)
+X = featurizer.featurize(trj0)
+
+array([[ 0.10102207,  0.15920012,  0.16530874]], dtype=float32)
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Slow Feature Extraction with tICA</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="https://docs.google.com/drawings/d/1cySR96A8koo-xM7CB8srEFf9ScODGtIP-Z_PCH6_rHc/pub?w=754&amp;h=137">
+</center></p>
+<pre class="prettyprint" data-lang="python">
+import mixtape.tica
+
+tica = mixtape.tica.tICA()
+# Calculate correlation functions and solve the tICA eigenproblem
+map(lambda trj: tica.partial_fit(featurizer.featurize(trj)), trajectories)
+# Calculate our projected features
+X_slow = map(lambda trj: tica.transform(featurizer.featurize(trj)), trajectories)
+
+</pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>HMMs of Molecular Kinetics</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img src="https://docs.google.com/drawings/d/1cySR96A8koo-xM7CB8srEFf9ScODGtIP-Z_PCH6_rHc/pub?w=754&amp;h=137">
+</center></p>
+<pre class="prettyprint" data-lang="python">
+import mixtape.ghmm
+
+n_states = 4
+
+model = mixtape.ghmm.GaussianFusionHMM(n_states)
+model.fit(X_slow)
+</pre></article>
+ 
+</slide>
+
+<slide class="segue dark nobackground" >
+  
+    <!-- <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside> -->
+    <hgroup class="auto-fadein">
+      <h2>Kinetic Modeling of the human Kinome</h2>
+      <h3></h3>
+    </hgroup>
+  
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>SRC Kinase</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><img height=500 src="/home/kyleb/src/kyleabeauchamp/tICABenchmark/figures/tICA_src_-1alpha_4tics_3states.png"></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Future Work</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><ul>
+<li>Cross-Validated Likelihood</li>
+<li>Pipelining and Concatenating Featurizers</li>
+<li>Randomized Feature Selection</li>
+<li>Outlier Detection of Bad Trajectories</li>
+</ul></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
       <h2>Counting Transitions</h2>
       <h3></h3>
     </hgroup>
@@ -197,274 +392,6 @@ $C = \begin{pmatrix} C_{1\rightarrow 1} &amp; C_{1\rightarrow 2} \\ C_{2 \righta
 <p>$\downarrow$</p>
 <p>$T = \begin{pmatrix} T_{1\rightarrow 1} &amp; T_{1\rightarrow 2} \\ T_{2 \rightarrow 1} &amp; T_{2 \rightarrow 2} \end{pmatrix} = \begin{pmatrix}\frac{2}{3} &amp; \frac{1}{3} \\ 0 &amp; 1\end{pmatrix}$</p>
 <p></center></p></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>The Markov State Model Pipeline</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><p><img src="https://docs.google.com/drawings/d/1T156xWFqyu6rxG2aIkI7_a-BY5e8TvXEZ-Jjjg0XgGc/pub?w=960&amp;h=384"></p></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Challenges in MSM Construction</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><ul>
-<li>No score function for overall model</li>
-<li>Hyperparameters in every step (tICA, Clustering, microstates, lumping, macrostates)</li>
-<li>Bias variance tradeoff is unwinable (10,000 states)  </li>
-</ul></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>HMMs</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><p><center>
-<img height=150 src="http://upload.wikimedia.org/wikipedia/commons/8/83/Hmm_temporal_bayesian_net.svg">
-<img height=400 src="http://scikit-learn.org/stable/_images/plot_hmm_stock_analysis_1.png">
-</center></p>
-<footer class="source"> 
-Prinz, 2013.  McGibbon, 2014.
-</footer></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>A HMM Pipeline for Molecular Kinetics</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><p><img src="https://docs.google.com/drawings/d/1zgfNZ4JFH-X62KQklDFHpgZ2orxRHkfyfk_pBdi4YQs/pub?w=960&amp;h=384"></p></article>
- 
-</slide>
-
-<slide class="segue dark nobackground" >
-  
-    <!-- <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside> -->
-    <hgroup class="auto-fadein">
-      <h2>Towards a Data Pipeline for Molecular Kinetics</h2>
-      <h3></h3>
-    </hgroup>
-  
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>MDTraj, MSMBuilder, Mixtape (MSMB3)</h2>
-      <h3>Open-Source, High-Performance Featurization, Modeling, and Analysis</h3>
-    </hgroup>
-    <article ><p><center>
-<img height=250 src=figures/mdtraj_logo-small.png />   <img height=250 src=figures/msmb_logo.png /><br />
-</center></p>
-<footer class="source">
-Contributions from Vijay Pande, Greg Bowman, Xuhui Huang, John Chodera, Sergio Bacallado, Dan Ensign, Vince Voelz, TJ Lane, Lutz Maibaum, Imran Haque, Robert McGibbon, Christian Schwantes, Toni Giorgino, Gianni de Fabritiis
-</footer></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Loading and Saving Trajectories</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><pre class="prettyprint" data-lang="python">
-
-import mdtraj as md
-
-trj = md.load("./Trajectories/trj0.h5")
-trj.save("out.pdb")
-
-</pre></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Watch your memory footprint!</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><pre class="prettyprint" data-lang="python">
-
-import mdtraj as md
-
-for chunk in md.iterload("./Trajectories/trj0.h5"):
-    do_something(chunk)
-
-</pre></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Arbitrary Trajectory Buckets</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><pre class="prettyprint" data-lang="python">
-import glob
-import msmbuilder as msmb
-
-filenames = sorted(glob.glob("./Trajectories/*.h5"), key=msmb.utils.keynat)
-trajectories = [md.load(filename, stride=stride) for filename in filenames]
-
-</pre>
-
-<ul>
-<li>Out of core loading is almost finished!</li>
-</ul></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Analyzing MD Data in MDTraj</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><pre class="prettyprint" data-lang="python">
-
-import mdtraj as md
-
-trj = md.load("./Trajectories/trj0.h5")
-atom_indices, phi = md.compute_phi(trj)
-
-</pre>
-
-<p>Need a more generalizable approach!</p></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Featurizers</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><pre class="prettyprint" data-lang="python">
-import mixtape.featurizer
-
-featurizer = mixtape.featurizer.AtomPairsFeaturizer([[0, 1],[1, 2], [2, 3]], trj0)
-X = featurizer.featurize(trj)
-
-array([[ 0.10102207,  0.15920012,  0.16530874]], dtype=float32)
-</pre></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Mass Featurization</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><pre class="prettyprint" data-lang="python">
-import mixtape.featurizer
-
-featurizer = mixtape.featurizer.AtomPairsFeaturizer([[0, 1],[1, 2], [2, 3]], trj0)
-X_list = map(lambda trj: featurizer.featurize(trj), trajectories)
-
-[array([[ 0.10100006,  0.17686693,  0.15999277],
-       [ 0.1010002 ,  0.15915124,  0.15710162],
-       [ 0.10100002,  0.16685238,  0.1592802 ],
-       ..., 
-       [ 0.10099998,  0.16684847,  0.15866663],
-       [ 0.10100007,  0.16221181,  0.16088213],
-       [ 0.10099998,  0.1550298 ,  0.17153391]], dtype=float32),
- array([[ 0.10099967,  0.17153431,  0.17215465],
-       [ 0.10100014,  0.15179284,  0.16040237],
-       [ 0.10100014,  0.16157277,  0.16634522],
-       ..., 
-       [ 0.10100002,  0.17515557,  0.16074601],
-       [ 0.101     ,  0.15392499,  0.1583055 ],
-       [ 0.10100027,  0.17150088,  0.15800913]], dtype=float32)]
-
-</pre></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>tICA</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><pre class="prettyprint" data-lang="python">
-import mixtape.tica
-
-tica = mixtape.tica.tICA()
-# Calculate correlation functions and solve the tICA eigenproblem
-map(lambda trj: tica.partial_fit(featurizer.featurize(trj)), trajectories)
-# Calculate our projected features
-projected = map(lambda trj: tica.transform(featurizer.featurize(trj)), trajectories)
-
-</pre></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>HMMs</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><pre class="prettyprint" data-lang="python">
-import mixtape.ghmm
-
-n_states = 4
-
-model = mixtape.ghmm.GaussianFusionHMM(n_states)
-model.fit(X_all)
-model.timescales_
-</pre></article>
- 
-</slide>
-
-<slide class="segue dark nobackground" >
-  
-    <!-- <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside> -->
-    <hgroup class="auto-fadein">
-      <h2>Kinetic Modeling of the human Kinome</h2>
-      <h3></h3>
-    </hgroup>
-  
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>SRC Kinase</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><p><img height=500 src="/home/kyleb/src/kyleabeauchamp/tICABenchmark/figures/tICA_src_-1alpha_4tics_3states.png"></p></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Future Work</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><ul>
-<li>Evaluate Cross-Validated Likelihood Models</li>
-<li>Pipelining and Concatenating Featurizers</li>
-<li>Randomized Feature Selection</li>
-</ul></article>
  
 </slide>
 
