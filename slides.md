@@ -27,7 +27,7 @@ title: Challenges in Simulation
 
 - Precision (Sampling)
 - Quantitative Connection to Experiment (Prediction)
-- Interpretation of High-Dimensional Data (Reduction)
+- Interpretation (Dimensionality Reduction)
 
 
 
