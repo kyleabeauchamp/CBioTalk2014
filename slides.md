@@ -39,9 +39,9 @@ class: segue dark nobackground
 ---
 title: Markov State Models
 
-- Statistical sampling by short simulations
-- Predict arbitrary time-correlation functions
-- Few-state models for interpretability
+- Statistical sampling by short simulations (Sampling)
+- Predict arbitrary time-correlation functions (Prediction)
+- Few-state models for interpretability (Reduction)
 
 <center>
 <img height=365 src=figures/chodera2007.png />
@@ -84,7 +84,7 @@ title: The Markov State Model Pipeline
 title: Challenges in MSM Construction
 
 - No score function for overall model
-- Hyperparameters in every step (tICA, Clustering, microstates, lumping, macrostates)
+- Hyperparameters in every step 
 - Bias variance tradeoff is unwinable (10,000 states)  
 
 ---
@@ -109,11 +109,11 @@ title: A HMM Pipeline for Molecular Kinetics
 
 
 ---
-title: MDTraj, MSMBuilder, Mixtape (MSMB3)
+title: MSMBuilder, MDTraj, Mixtape (MSMB3)
 subtitle: Open-Source, High-Performance Featurization, Modeling, and Analysis
 
 <center>
-<img height=250 src=figures/mdtraj_logo-small.png />   <img height=250 src=figures/msmb_logo.png />  
+   <img height=250 src=figures/msmb_logo.png />  <img height=250 src=figures/mdtraj_logo-small.png />
 </center>
 
 <footer class="source">
