@@ -204,6 +204,7 @@ model.fit(X_slow)
 title: Recovering Known Metastable States
 
 <img height=500 src="./figures//tICA_hp35_-1alpha_3tics_10states.png">
+<img height=350 src="./figures/2f4k.png">
 
 ---
 title: Recovering Known Metastable States
@@ -235,6 +236,7 @@ title: Future Work
 - Pipelining and Concatenating Featurizers
 - Randomized Feature Selection
 - Outlier Detection of Bad Trajectories
+- Improved Simulation Protocols and Parameters
 
 
 ---
