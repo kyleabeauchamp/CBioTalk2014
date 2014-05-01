@@ -9,6 +9,15 @@ title: The Human Kinome
 <img height=550 src=figures/kinome_drugs.jpg />
 </center>
 
+
+---
+title: Ligand Binding and Metastable States
+
+<center>
+<img height=450 src=figures/gprc_ligands.jpg />
+</center>
+
+
 ---
 title: Physical Simulation of Kinase Inhibitors
 
@@ -30,14 +39,8 @@ title: Challenges in Simulation
 - Interpretation (Dimensionality Reduction)
 
 
-
 ---
-title: Markov State Models for Molecular Kinetics
-class: segue dark nobackground
-
-
----
-title: Markov State Models
+title: Markov State Models of Kinetics
 
 - Statistical sampling by short simulations (Sampling)
 - Predict arbitrary time-correlation functions (Prediction)
@@ -154,7 +157,7 @@ title: Trajectory Featurization
 </center>
 
 <pre class="prettyprint" data-lang="python">
-import mixtape.featurizer
+import mixtape
 
 featurizer = mixtape.featurizer.AtomPairsFeaturizer([[0, 1],[1, 2], [2, 3]], trj0)
 X = featurizer.featurize(trj0)
@@ -169,18 +172,19 @@ title: Slow Feature Detection with tICA
 <img src="https://docs.google.com/drawings/d/1cySR96A8koo-xM7CB8srEFf9ScODGtIP-Z_PCH6_rHc/pub?w=754&amp;h=137">
 </center>
 
-<pre class="prettyprint" data-lang="python">
-import mixtape.tica
 
+
+Goal: Find slowest linear combination of $f_i(t)$
+
+$$C(t) x = \lambda(t) \Sigma x$$
+
+
+<pre class="prettyprint" data-lang="python">
 tica = mixtape.tica.tICA()
 map(lambda trj: tica.partial_fit(featurizer.featurize(trj)), trajectories)
 X_slow = map(lambda trj: tica.transform(featurizer.featurize(trj)), trajectories)
 
 </pre>
-
-Goal: Find slowest linear combination of $f_i(t)$
-
-$$C(t) x = \lambda(t) \Sigma x$$
 
 
 
@@ -192,13 +196,20 @@ title: HMMs of Molecular Kinetics
 </center>
 
 <pre class="prettyprint" data-lang="python">
-import mixtape.ghmm
-
-n_states = 4
-
 model = mixtape.ghmm.GaussianFusionHMM(n_states)
 model.fit(X_slow)
 </pre>
+
+
+---
+title: Metastable States of the Kinome
+
+<center>
+<img height=550 src=figures/kinome_drugs.jpg />
+</center>
+
+
+
 
 ---
 title: Recovering Known Metastable States
@@ -240,37 +251,8 @@ title: Future Work
 
 
 ---
-title: Counting Transitions
+title: Acknowledgements
 
-<center>
-
-<img height=300 src=figures/NewPaths-2State.png />
-
-$\downarrow$
-
-$A = (111222222)$
-
----
-title: Counting Transitions
-
-<center>
-
-$A = (111222222)$
-
-$\downarrow$
-
-$C = \begin{pmatrix} C_{1\rightarrow 1} & C_{1\rightarrow 2} \\\ C_{2 \rightarrow 1} & C_{2 \rightarrow 2} \end{pmatrix} =  \begin{pmatrix}2 & 1 \\\ 0 & 5\end{pmatrix}$
-
-</center>
-
----
-title: Estimating Rates
-
-<center>
-$C = \begin{pmatrix} C_{1\rightarrow 1} & C_{1\rightarrow 2} \\\ C_{2 \rightarrow 1} & C_{2 \rightarrow 2} \end{pmatrix} = \begin{pmatrix}2 & 1 \\\ 0 & 5\end{pmatrix}$
-
-$\downarrow$
-
-$T = \begin{pmatrix} T_{1\rightarrow 1} & T_{1\rightarrow 2} \\\ T_{2 \rightarrow 1} & T_{2 \rightarrow 2} \end{pmatrix} = \begin{pmatrix}\frac{2}{3} & \frac{1}{3} \\\ 0 & 1\end{pmatrix}$
-
-</center>
+- Chodera Lab
+- Robert McGibbon and MSMBuilder Developers
+- Folding@Home + Vijay Pande

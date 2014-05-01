@@ -74,6 +74,18 @@ URL: https://code.google.com/p/io-2012-slides
 <slide  >
   
     <hgroup>
+      <h2>Ligand Binding and Metastable States</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img height=450 src=figures/gprc_ligands.jpg />
+</center></p></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
       <h2>Physical Simulation of Kinase Inhibitors</h2>
       <h3></h3>
     </hgroup>
@@ -102,20 +114,10 @@ Shaw, 2012
  
 </slide>
 
-<slide class="segue dark nobackground" >
-  
-    <!-- <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside> -->
-    <hgroup class="auto-fadein">
-      <h2>Markov State Models for Molecular Kinetics</h2>
-      <h3></h3>
-    </hgroup>
-  
-</slide>
-
 <slide  >
   
     <hgroup>
-      <h2>Markov State Models</h2>
+      <h2>Markov State Models of Kinetics</h2>
       <h3></h3>
     </hgroup>
     <article ><ul>
@@ -267,7 +269,7 @@ trajectories = [md.load(filename, stride=stride) for filename in filenames]
 <img src="https://docs.google.com/drawings/d/1cySR96A8koo-xM7CB8srEFf9ScODGtIP-Z_PCH6_rHc/pub?w=754&amp;h=137">
 </center></p>
 <pre class="prettyprint" data-lang="python">
-import mixtape.featurizer
+import mixtape
 
 featurizer = mixtape.featurizer.AtomPairsFeaturizer([[0, 1],[1, 2], [2, 3]], trj0)
 X = featurizer.featurize(trj0)
@@ -286,17 +288,14 @@ array([[ 0.10102207,  0.15920012,  0.16530874]], dtype=float32)
     <article ><p><center>
 <img src="https://docs.google.com/drawings/d/1cySR96A8koo-xM7CB8srEFf9ScODGtIP-Z_PCH6_rHc/pub?w=754&amp;h=137">
 </center></p>
+<p>Goal: Find slowest linear combination of $f_i(t)$</p>
+<p>$$C(t) x = \lambda(t) \Sigma x$$</p>
 <pre class="prettyprint" data-lang="python">
-import mixtape.tica
-
 tica = mixtape.tica.tICA()
 map(lambda trj: tica.partial_fit(featurizer.featurize(trj)), trajectories)
 X_slow = map(lambda trj: tica.transform(featurizer.featurize(trj)), trajectories)
 
-</pre>
-
-<p>Goal: Find slowest linear combination of $f_i(t)$</p>
-<p>$$C(t) x = \lambda(t) \Sigma x$$</p></article>
+</pre></article>
  
 </slide>
 
@@ -310,13 +309,21 @@ X_slow = map(lambda trj: tica.transform(featurizer.featurize(trj)), trajectories
 <img src="https://docs.google.com/drawings/d/1cySR96A8koo-xM7CB8srEFf9ScODGtIP-Z_PCH6_rHc/pub?w=754&amp;h=137">
 </center></p>
 <pre class="prettyprint" data-lang="python">
-import mixtape.ghmm
-
-n_states = 4
-
 model = mixtape.ghmm.GaussianFusionHMM(n_states)
 model.fit(X_slow)
 </pre></article>
+ 
+</slide>
+
+<slide  >
+  
+    <hgroup>
+      <h2>Metastable States of the Kinome</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p><center>
+<img height=550 src=figures/kinome_drugs.jpg />
+</center></p></article>
  
 </slide>
 
@@ -384,41 +391,14 @@ model.fit(X_slow)
 <slide  >
   
     <hgroup>
-      <h2>Counting Transitions</h2>
+      <h2>Acknowledgements</h2>
       <h3></h3>
     </hgroup>
-    <article ><p><center></p>
-<p><img height=300 src=figures/NewPaths-2State.png /></p>
-<p>$\downarrow$</p>
-<p>$A = (111222222)$</p></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Counting Transitions</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><p><center></p>
-<p>$A = (111222222)$</p>
-<p>$\downarrow$</p>
-<p>$C = \begin{pmatrix} C_{1\rightarrow 1} &amp; C_{1\rightarrow 2} \\ C_{2 \rightarrow 1} &amp; C_{2 \rightarrow 2} \end{pmatrix} =  \begin{pmatrix}2 &amp; 1 \\ 0 &amp; 5\end{pmatrix}$</p>
-<p></center></p></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
-      <h2>Estimating Rates</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><p><center>
-$C = \begin{pmatrix} C_{1\rightarrow 1} &amp; C_{1\rightarrow 2} \\ C_{2 \rightarrow 1} &amp; C_{2 \rightarrow 2} \end{pmatrix} = \begin{pmatrix}2 &amp; 1 \\ 0 &amp; 5\end{pmatrix}$</p>
-<p>$\downarrow$</p>
-<p>$T = \begin{pmatrix} T_{1\rightarrow 1} &amp; T_{1\rightarrow 2} \\ T_{2 \rightarrow 1} &amp; T_{2 \rightarrow 2} \end{pmatrix} = \begin{pmatrix}\frac{2}{3} &amp; \frac{1}{3} \\ 0 &amp; 1\end{pmatrix}$</p>
-<p></center></p></article>
+    <article ><ul>
+<li>Chodera Lab</li>
+<li>Robert McGibbon and MSMBuilder Developers</li>
+<li>Folding@Home + Vijay Pande</li>
+</ul></article>
  
 </slide>
 
