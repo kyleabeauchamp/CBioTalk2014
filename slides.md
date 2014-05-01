@@ -243,9 +243,8 @@ title: Metastable States of src Kinase?
 ---
 title: Future Work
 
-- Cross-Validated Likelihood
+- Cross-Validated Likelihood and Model Selection
 - Pipelining and Concatenating Featurizers
-- Randomized Feature Selection
 - Outlier Detection of Bad Trajectories
 - Improved Simulation Protocols and Parameters
 
