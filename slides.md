@@ -200,19 +200,31 @@ model = mixtape.ghmm.GaussianFusionHMM(n_states)
 model.fit(X_slow)
 </pre>
 
+---
+title: Recovering Known Metastable States
+
+<img height=500 src="./figures//tICA_hp35_-1alpha_3tics_10states.png">
+
+---
+title: Recovering Known Metastable States
+
+<img height=500 src="./figures/hp35_overlay.png">
 
 
 ---
-title: Kinetic Modeling of the human Kinome
-class: segue dark nobackground
+title: Metastable States of src Kinase?
 
+<center>
+<img height=500 src="./figures/src_tica.png">
+</center>
 
 
 ---
-title: SRC Kinase
+title: Metastable States of src Kinase?
 
-<img height=500 src="/home/kyleb/src/kyleabeauchamp/tICABenchmark/figures/tICA_src_-1alpha_4tics_3states.png">
-
+<center>
+<img width=525 src="./figures/src.png">
+</center>
 
 
 
