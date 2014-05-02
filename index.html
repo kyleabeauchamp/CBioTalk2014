@@ -13,7 +13,7 @@ URL: https://code.google.com/p/io-2012-slides
 <!DOCTYPE html>
 <html>
 <head>
-  <title> Towards Robust Kinetic Models at the Kinome Scale</title>
+  <title> Mapping the Metastable States of the Human Kinome</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
@@ -52,7 +52,7 @@ URL: https://code.google.com/p/io-2012-slides
 <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
 
-    <h1> Towards Robust Kinetic Models at the Kinome Scale</h1>
+    <h1> Mapping the Metastable States of the Human Kinome</h1>
     <h2></h2>
     <p> Kyle Beauchamp<br/> Chodera Lab</p>
   </hgroup>
@@ -232,7 +232,7 @@ Prinz, 2013.  McGibbon, 2014.
   
     <hgroup>
       <h2>MSMBuilder, MDTraj, Mixtape (MSMB3)</h2>
-      <h3>Open-Source, High-Performance Featurization, Modeling, and Analysis</h3>
+      <h3>High-Performance Featurization and Analysis</h3>
     </hgroup>
     <article ><p><center>
    <img height=250 src=figures/msmb_logo.png />  <img height=250 src=figures/mdtraj_logo-small.png />
@@ -246,7 +246,7 @@ Contributions from Vijay Pande, Greg Bowman, Xuhui Huang, John Chodera, Sergio B
 <slide  >
   
     <hgroup>
-      <h2>Loading and Saving Trajectories</h2>
+      <h2>Loading Trajectories</h2>
       <h3></h3>
     </hgroup>
     <article ><p><center>
@@ -254,10 +254,9 @@ Contributions from Vijay Pande, Greg Bowman, Xuhui Huang, John Chodera, Sergio B
 </center></p>
 <pre class="prettyprint" data-lang="python">
 
-import mdtraj as md
+import mdtraj
 
-trj0 = md.load("./Trajectories/trj0.h5")
-trj0.save("out.pdb")
+trj = mdtraj.load("./Trajectories/trj0.h5")
 
 </pre></article>
  
@@ -320,21 +319,6 @@ model.fit(X_slow)
 <slide  >
   
     <hgroup>
-      <h2>Metastable States of the Kinome</h2>
-      <h3></h3>
-    </hgroup>
-    <article ><p><center>
-<img height=550 src=figures/kinome_drugs.jpg />
-</center></p>
-<footer class="source"> 
-Rix, 2009
-</footer></article>
- 
-</slide>
-
-<slide  >
-  
-    <hgroup>
       <h2>Recovering Known Metastable States</h2>
       <h3></h3>
     </hgroup>
@@ -387,9 +371,9 @@ Kiefhaber, 2010
       <h3></h3>
     </hgroup>
     <article ><ul>
-<li>We are mapping and mining metastable states of the human kinome</li>
-<li>A robot will test our predictions</li>
-<li>Major progress towards a robust kinetic modeling pipeline </li>
+<li>We are mapping metastable states of the human kinome</li>
+<li>Robust kinetic modeling pipeline recovers known results</li>
+<li>A robot will test our predictions </li>
 </ul></article>
  
 </slide>

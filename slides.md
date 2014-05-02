@@ -1,4 +1,4 @@
-% title: Towards Robust Kinetic Models at the Kinome Scale
+% title: Mapping the Metastable States of the Human Kinome
 % author: Kyle Beauchamp
 % author: Chodera Lab
 
@@ -121,7 +121,7 @@ title: A HMM Pipeline for Molecular Kinetics
 
 ---
 title: MSMBuilder, MDTraj, Mixtape (MSMB3)
-subtitle: Open-Source, High-Performance Featurization, Modeling, and Analysis
+subtitle: High-Performance Featurization and Analysis
 
 <center>
    <img height=250 src=figures/msmb_logo.png />  <img height=250 src=figures/mdtraj_logo-small.png />
@@ -135,7 +135,7 @@ Contributions from Vijay Pande, Greg Bowman, Xuhui Huang, John Chodera, Sergio B
 
 
 ---
-title: Loading and Saving Trajectories
+title: Loading Trajectories
 
 <center>
 <img src="https://docs.google.com/drawings/d/1cySR96A8koo-xM7CB8srEFf9ScODGtIP-Z_PCH6_rHc/pub?w=754&amp;h=137">
@@ -143,10 +143,9 @@ title: Loading and Saving Trajectories
 
 <pre class="prettyprint" data-lang="python">
 
-import mdtraj as md
+import mdtraj
 
-trj0 = md.load("./Trajectories/trj0.h5")
-trj0.save("out.pdb")
+trj = mdtraj.load("./Trajectories/trj0.h5")
 
 </pre>
 
@@ -199,18 +198,6 @@ model.fit(X_slow)
 </pre>
 
 
----
-title: Metastable States of the Kinome
-
-<center>
-<img height=550 src=figures/kinome_drugs.jpg />
-</center>
-
-
-<footer class="source"> 
-Rix, 2009
-</footer>
-
 
 ---
 title: Recovering Known Metastable States
@@ -250,9 +237,9 @@ title: Metastable States of src Kinase?
 title: Conclusions
 
 
-- We are mapping and mining metastable states of the human kinome
-- A robot will test our predictions
-- Major progress towards a robust kinetic modeling pipeline 
+- We are mapping metastable states of the human kinome
+- Robust kinetic modeling pipeline recovers known results
+- A robot will test our predictions 
 
 
 ---
