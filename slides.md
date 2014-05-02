@@ -96,6 +96,8 @@ title: Challenges in MSM Construction
 - No score function for overall model
 - Hyperparameters in every step 
 - Bias variance tradeoff is unwinable (10,000 states)  
+- Brittle!
+
 
 ---
 title: HMMs of Molecular Kinetics
