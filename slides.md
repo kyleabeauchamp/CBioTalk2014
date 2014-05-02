@@ -9,6 +9,10 @@ title: The Human Kinome
 <img height=550 src=figures/kinome_drugs.jpg />
 </center>
 
+<footer class="source"> 
+Rix, 2009
+</footer>
+
 
 ---
 title: Ligand Binding and Metastable States
@@ -17,6 +21,9 @@ title: Ligand Binding and Metastable States
 <img height=450 src=figures/gprc_ligands.jpg />
 </center>
 
+<footer class="source"> 
+Kobilka, 2012
+</footer>
 
 ---
 title: Physical Simulation of Kinase Inhibitors
@@ -200,6 +207,9 @@ title: Metastable States of the Kinome
 </center>
 
 
+<footer class="source"> 
+Rix, 2009
+</footer>
 
 
 ---
@@ -208,11 +218,16 @@ title: Recovering Known Metastable States
 <img height=500 src="./figures//tICA_hp35_-1alpha_3tics_10states.png">
 <img height=350 src="./figures/2f4k.png">
 
+
+
 ---
 title: Recovering Known Metastable States
 
 <img height=500 src="./figures/hp35_overlay.png">
 
+<footer class="source"> 
+Kiefhaber, 2010
+</footer>
 
 ---
 title: Metastable States of src Kinase?
@@ -229,6 +244,15 @@ title: Metastable States of src Kinase?
 <img width=525 src="./figures/src.png">
 </center>
 
+
+
+---
+title: Conclusions
+
+
+- We are mapping and mining metastable states of the human kinome
+- A robot will test our predictions
+- Major progress towards a robust kinetic modeling pipeline 
 
 
 ---
