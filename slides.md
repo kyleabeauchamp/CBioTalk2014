@@ -106,8 +106,9 @@ Prinz, 2013.  McGibbon, 2014.
 ---
 title: A HMM Pipeline for Molecular Kinetics
 
+<center>
 <img src="https://docs.google.com/drawings/d/1zgfNZ4JFH-X62KQklDFHpgZ2orxRHkfyfk_pBdi4YQs/pub?w=960&amp;h=384">
-
+</center>
 
 
 
@@ -136,13 +137,9 @@ title: Loading and Saving Trajectories
 <pre class="prettyprint" data-lang="python">
 
 import mdtraj as md
-import glob
 
 trj0 = md.load("./Trajectories/trj0.h5")
 trj0.save("out.pdb")
-
-filenames = sorted(glob.glob("./Trajectories/*.h5"))
-trajectories = [md.load(filename, stride=stride) for filename in filenames]
 
 </pre>
 
@@ -171,12 +168,6 @@ title: Slow Feature Detection with tICA
 <center>
 <img src="https://docs.google.com/drawings/d/1cySR96A8koo-xM7CB8srEFf9ScODGtIP-Z_PCH6_rHc/pub?w=754&amp;h=137">
 </center>
-
-
-
-Goal: Find slowest linear combination of $f_i(t)$
-
-$$C(t) x = \lambda(t) \Sigma x$$
 
 
 <pre class="prettyprint" data-lang="python">

@@ -216,7 +216,9 @@ Prinz, 2013.  McGibbon, 2014.
       <h2>A HMM Pipeline for Molecular Kinetics</h2>
       <h3></h3>
     </hgroup>
-    <article ><p><img src="https://docs.google.com/drawings/d/1zgfNZ4JFH-X62KQklDFHpgZ2orxRHkfyfk_pBdi4YQs/pub?w=960&amp;h=384"></p></article>
+    <article ><p><center>
+<img src="https://docs.google.com/drawings/d/1zgfNZ4JFH-X62KQklDFHpgZ2orxRHkfyfk_pBdi4YQs/pub?w=960&amp;h=384">
+</center></p></article>
  
 </slide>
 
@@ -247,13 +249,9 @@ Contributions from Vijay Pande, Greg Bowman, Xuhui Huang, John Chodera, Sergio B
 <pre class="prettyprint" data-lang="python">
 
 import mdtraj as md
-import glob
 
 trj0 = md.load("./Trajectories/trj0.h5")
 trj0.save("out.pdb")
-
-filenames = sorted(glob.glob("./Trajectories/*.h5"))
-trajectories = [md.load(filename, stride=stride) for filename in filenames]
 
 </pre></article>
  
@@ -288,8 +286,6 @@ array([[ 0.10102207,  0.15920012,  0.16530874]], dtype=float32)
     <article ><p><center>
 <img src="https://docs.google.com/drawings/d/1cySR96A8koo-xM7CB8srEFf9ScODGtIP-Z_PCH6_rHc/pub?w=754&amp;h=137">
 </center></p>
-<p>Goal: Find slowest linear combination of $f_i(t)$</p>
-<p>$$C(t) x = \lambda(t) \Sigma x$$</p>
 <pre class="prettyprint" data-lang="python">
 tica = mixtape.tica.tICA()
 map(lambda trj: tica.partial_fit(featurizer.featurize(trj)), trajectories)
