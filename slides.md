@@ -130,7 +130,7 @@ subtitle: High-Performance Featurization and Analysis
 </center>
 
 <footer class="source">
-Contributions from Vijay Pande, Greg Bowman, Xuhui Huang, John Chodera, Sergio Bacallado, Dan Ensign, Vince Voelz, TJ Lane, Lutz Maibaum, Imran Haque, Robert McGibbon, Christian Schwantes, Toni Giorgino, Gianni de Fabritiis
+Contributions from Vijay Pande, Greg Bowman, Xuhui Huang, John Chodera, Sergio Bacallado, Dan Ensign, Vince Voelz, TJ Lane, Lutz Maibaum, Imran Haque, Robert McGibbon, Christian Schwantes, Toni Giorgino, Gianni de Fabritiis, Bharath Ramsundar
 </footer>
 
 
@@ -204,15 +204,15 @@ model.fit(X_slow)
 ---
 title: Recovering Known Metastable States
 
-<img height=500 src="./figures//tICA_hp35_-1alpha_3tics_10states.png">
-<img height=350 src="./figures/2f4k.png">
+<img height=500 src="figures//tICA_hp35_-1alpha_3tics_10states.png">
+<img height=350 src="figures/2f4k.png">
 
 
 
 ---
 title: Recovering Known Metastable States
 
-<img height=500 src="./figures/hp35_overlay.png">
+<img height=500 src="figures/hp35_overlay.png">
 
 <footer class="source"> 
 Kiefhaber, 2010
@@ -222,7 +222,7 @@ Kiefhaber, 2010
 title: Metastable States of src Kinase?
 
 <center>
-<img height=500 src="./figures/src_tica.png">
+<img height=500 src="figures/src_tica.png">
 </center>
 
 
@@ -230,7 +230,7 @@ title: Metastable States of src Kinase?
 title: Metastable States of src Kinase?
 
 <center>
-<img width=525 src="./figures/src.png">
+<img width=525 src="figures/src.png">
 </center>
 
 
