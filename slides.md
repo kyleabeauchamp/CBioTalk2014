@@ -204,7 +204,7 @@ model.fit(X_slow)
 ---
 title: Recovering Known Metastable States
 
-<img height=500 src="figures2/tICA_hp35_-1alpha_3tics_10states.png">
+<img height=500 src="figures/tICA_hp35_-1alpha_3tics_10states.png">
 <img height=350 src="figures/2f4k.png">
 
 
